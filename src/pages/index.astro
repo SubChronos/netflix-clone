@@ -1,9 +1,32 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
+import FilaPelis from '@/components/FilaPelis.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { getWeeklyTrending, getDailyTrending, getDiscover, getPopular, getNowPlaying, getTopRated, getUpcoming, getThriller, getCartoon } from "@/lib/api";
+
+
+// Recupera pelis
+const trending_week = await getWeeklyTrending(1);
+const trending_day = await getDailyTrending(1);
+const discover = await getDiscover(1);
+const popular = await getPopular(1);
+const now_playing = await getNowPlaying(1);
+const top_rated = await getTopRated(1);
+const upcoming = await getUpcoming(1);
+const cartoon = await getCartoon(1);
+const thriller = await getThriller(1);
 ---
 
 <Layout title="SubchoFlix">
+  <main class="flex flex-col ml-10 gap-20">
+    <FilaPelis id="popular" title="Popular" pelis={popular}/>
+    <FilaPelis id="tranding_day" title="Tendencia de Hoy" pelis={trending_day}/>
+    <FilaPelis id="now_playing" title="En cines" pelis={now_playing}/>
+    <FilaPelis id="top_rated" title="Mejor valoradas" pelis={top_rated}/>
+    <FilaPelis id="cartoon" title="Dibujos animados" pelis={cartoon}/>
+    <FilaPelis id="discover" title="Descubrimiento" pelis={discover}/>
+    <FilaPelis id="thriller" title="Thriller" pelis={thriller}/>
+    <FilaPelis id="trending_week" title="Tendencia Semanal" pelis={trending_week}/>
+    <FilaPelis id="upcoming" title="Proximamente" pelis={upcoming}/>
+  </main>
 </Layout>
