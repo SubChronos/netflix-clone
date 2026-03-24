@@ -1,4 +1,4 @@
-import type { MovieResponse, MovieDetails } from "@/lib/types";
+import type { MovieResponse, MovieDetails, VideoResponse } from "@/lib/types";
 
 // Opciones - ID de la cuenta
 const options = {
@@ -66,40 +66,28 @@ export async function getMovieDetails(id: string): Promise<MovieDetails> {
   return data
 }
 
+// VIDEOS
+export async function getMovieVideos(id: string): Promise<VideoResponse> {
+  // Cache
+  const cacheKey = `videos-${id}`;
+  const cachedItem = apiCache.get(cacheKey);
+  if (cachedItem && (Date.now() - cachedItem.timestamp < CACHE_TTL)) {
+    return cachedItem.data;
+  }
 
+  const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=es-ES`, options);
+  
+  if (!response.ok) {
+    throw new Error('Error al cargar las películas');
+  }
+  
+  const data = await response.json();
 
-//// TENDENCIA SEMANAL
-//export const getWeeklyTrending = (page: number = 1) => 
-//  getMovies("trending/movie/week", "", 1);
-//
-//// TENDENCIA DIARIA
-//export const getDailyTrending = (page: number = 1) => 
-//  getMovies("trending/movie/day", "", 1);
-//
-//// DISCOVER
-//export const getDiscover = (page: number = 1) => 
-//  getMovies("discover/movie", "", 1);
-//
-//// POPULAR
-//export const getPopular = (page: number = 1) => 
-//  getMovies("movie/popular", "", 1);
-//
-//// MEJOR VALORADO
-//export const getTopRated = (page: number = 1) => 
-//  getMovies("movie/top_rated", "", 1);
-//
-//// PROXIMAMENTE
-//export const getUpcoming = (page: number = 1) => 
-//  getMovies("movie/upcoming", "", 1);
-//
-//// EN CINES
-//export const getNowPlaying = (page: number = 1) => 
-//  getMovies("movie/now_playing", "", 1);
-//
-//// ANIMACION (Género 16)
-//export const getCartoon = (page: number = 1) => 
-//  getMovies("discover/movie", "&sort_by=popularity.desc&with_genres=16", 1);
-//
-//// THRILLER (Género 53)
-//export const getThriller = (page: number = 1) => 
-//  getMovies("discover/movie", "&sort_by=popularity.desc&with_genres=53", 1);
+  // Guarda en cache la consulta
+  apiCache.set(cacheKey, {
+    data: data,
+    timestamp: Date.now()
+  });
+
+  return data
+}
