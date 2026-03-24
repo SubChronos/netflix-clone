@@ -1,0 +1,19 @@
+---
+import type { MovieResponse } from "@/lib/types"
+import { getMovies } from "@/lib/api"
+import FilaPelis from '@/components/FilaPelis.astro';
+
+interface Props {
+  id:string,
+  title:string,
+  url:string,
+  params:string,
+}
+
+const { id, title, url, params} = Astro.props
+
+// Recupera pelis
+const pelis = await getMovies(url, params, 1);
+---
+
+<FilaPelis id={id} title={title} pelis={pelis}/>

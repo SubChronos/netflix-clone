@@ -9,6 +9,16 @@ const options = {
   }
 };
 
+// FETCH API
+export async function getMovies(url: string, params: string = "", page: number = 1): Promise<MovieResponse> {
+  const response = await fetch(`https://api.themoviedb.org/3/${url}?language=es-ES${params}&page=${page}`, options);
+  
+  if (!response.ok) {
+    throw new Error('Error al cargar las películas');
+  }
+  
+  return await response.json();
+}
 
 // DETALLE PELICULA
 export async function getMovieDetails(peli: string): Promise<MovieDetails> {
@@ -23,101 +33,38 @@ export async function getMovieDetails(peli: string): Promise<MovieDetails> {
 
 
 
-// TENDENCIA SEMANAL
-export async function getWeeklyTrending(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/trending/movie/week?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// TENDENCIA DIARIA
-export async function getDailyTrending(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/trending/movie/day?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// DISCOVER
-export async function getDiscover(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// POPULAR
-export async function getPopular(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/popular?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// MEJOR VALORADO
-export async function getTopRated(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// PROXIMAMENTE
-export async function getUpcoming(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/upcoming?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// EN CINES
-export async function getNowPlaying(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// ANIMACION
-export async function getCartoon(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?language=es-ES&sort_by=popularity.desc&with_genres=16&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
-
-// THRILLER
-export async function getThriller(page: number = 1): Promise<MovieResponse> {
-  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?language=es-ES&sort_by=popularity.desc&with_genres=53&page=${page}`, options);
-  
-  if (!response.ok) {
-    throw new Error('Error al cargar las películas');
-  }
-  
-  return await response.json();
-}
+//// TENDENCIA SEMANAL
+//export const getWeeklyTrending = (page: number = 1) => 
+//  getMovies("trending/movie/week", "", 1);
+//
+//// TENDENCIA DIARIA
+//export const getDailyTrending = (page: number = 1) => 
+//  getMovies("trending/movie/day", "", 1);
+//
+//// DISCOVER
+//export const getDiscover = (page: number = 1) => 
+//  getMovies("discover/movie", "", 1);
+//
+//// POPULAR
+//export const getPopular = (page: number = 1) => 
+//  getMovies("movie/popular", "", 1);
+//
+//// MEJOR VALORADO
+//export const getTopRated = (page: number = 1) => 
+//  getMovies("movie/top_rated", "", 1);
+//
+//// PROXIMAMENTE
+//export const getUpcoming = (page: number = 1) => 
+//  getMovies("movie/upcoming", "", 1);
+//
+//// EN CINES
+//export const getNowPlaying = (page: number = 1) => 
+//  getMovies("movie/now_playing", "", 1);
+//
+//// ANIMACION (Género 16)
+//export const getCartoon = (page: number = 1) => 
+//  getMovies("discover/movie", "&sort_by=popularity.desc&with_genres=16", 1);
+//
+//// THRILLER (Género 53)
+//export const getThriller = (page: number = 1) => 
+//  getMovies("discover/movie", "&sort_by=popularity.desc&with_genres=53", 1);
