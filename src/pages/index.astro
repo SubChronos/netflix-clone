@@ -1,18 +1,45 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import CargarFila from '@/components/CargarFila.astro';
+import LoadingFila from '@/components/LoadingFila.astro';
 ---
 
 <Layout title="SubchoFlix">
   <main class="flex flex-col gap-20">
-    <CargarFila server:defer id="popular" title="Popular" url="movie/popular" />
-    <CargarFila server:defer id="trending_day" title="Tendencia de Hoy" url="trending/movie/day" />
-    <CargarFila server:defer id="now_playing" title="En cines" url="movie/now_playing" />
-    <CargarFila server:defer id="top_rated" title="Mejor valoradas" url="movie/top_rated" />
-    <CargarFila server:defer id="cartoon" title="Dibujos animados" url="discover/movie" params="&sort_by=popularity.desc&with_genres=16" />
-    <CargarFila server:defer id="discover" title="Descubrimiento" url="discover/movie" />
-    <CargarFila server:defer id="thriller" title="Thriller" url="discover/movie" params="&sort_by=popularity.desc&with_genres=53" />
-    <CargarFila server:defer id="trending_week" title="Tendencia Semanal" url="trending/movie/week" />
-    <CargarFila server:defer id="upcoming" title="Proximamente" url="movie/upcoming" />
+    <CargarFila id="popular" title="Popular" url="movie/popular"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="trending_day" title="Tendencia de Hoy" url="trending/movie/day"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="now_playing" title="En cines" url="movie/now_playing"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="top_rated" title="Mejor valoradas" url="movie/top_rated"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="cartoon" title="Dibujos animados" url="discover/movie" params="&sort_by=popularity.desc&with_genres=16"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="discover" title="Descubrimiento" url="discover/movie"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="thriller" title="Thriller" url="discover/movie" params="&sort_by=popularity.desc&with_genres=53"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="trending_week" title="Tendencia Semanal" url="trending/movie/week"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
+
+    <CargarFila id="upcoming" title="Proximamente" url="movie/upcoming"> 
+      <LoadingFila slot="fallback"/>
+    </CargarFila>
   </main>
 </Layout>
